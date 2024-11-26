@@ -39,6 +39,7 @@ A software-hardware co-designed RPC on-NIC accelerator that enables reconfigurab
 
 ### Directory Structure:
 
+~~~
 .
 ├── bitstream (U280 Bitstream)
 ├── bluefield  (Bluefiled-3 DMA and ser/des test)
@@ -57,7 +58,7 @@ A software-hardware co-designed RPC on-NIC accelerator that enables reconfigurab
 │   ├── eRPC
 │   └── fmt
 └── utils
-
+~~~
 
 
 ### ThirdParty
