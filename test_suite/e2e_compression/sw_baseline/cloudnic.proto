@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package cloudnic;
+
+option optimize_for = LITE_RUNTIME;
+
+message CompressImgReq {
+    optional int64 img_id = 1;
+    optional bytes img = 2;
+}
+
+message CompressImgResp {
+    optional int64 img_id = 1;
+    optional bytes img = 2;
+}
