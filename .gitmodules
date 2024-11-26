@@ -1,3 +1,6 @@
 [submodule "third_party/fmt"]
 	path = third_party/fmt
 	url = https://github.com/fmtlib/fmt.git
+[submodule "qdma_driver"]
+	path = qdma_driver
+	url = https://github.com/RC4ML/qdma_driver.git
