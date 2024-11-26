@@ -1,0 +1,7 @@
+/build
+/build_host
+/build_dpu
+/bin_host
+/bin_dpu
+/lib_host
+/lib_dpu

@@ -1,44 +1,61 @@
 cmake_minimum_required(VERSION 3.10)
 set(CMAKE_CXX_STANDARD 17)
 
-project(qdma LANGUAGES CXX)
+project(RPCNIC LANGUAGES CXX)
 
-add_subdirectory(fmt)
 
-set(SOURCE_FILES
-	QDMAController.cpp
-)
 
-set(HEAD_FILES 
-	QDMAController.h
-	QDMAController.hpp
-)
+if (CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
+    message(STATUS "Compile on DPU")
+    message(STATUS "Output Dir is /bin_dpu")
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin_dpu)
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build_dpu)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib_dpu)
 
-SET(COMPILE_CUDA OFF)
-if (${COMPILE_CUDA})
-	enable_language(CUDA)
-	set_source_files_properties(${SOURCE_FILES} PROPERTIES LANGUAGE CUDA)
-	add_definitions(-DGPU_ENABLE)
+elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
+    message(STATUS "Compile on HOST")
+    message(STATUS "Output Dir is /bin_host")
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin_host)
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build_host)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib_host)
+else()
+    # 在其他架构下的逻辑代码
+    message("Unknown architecture detected")
+    return()
 endif ()
 
-add_library(qdma SHARED ${SOURCE_FILES})
-target_link_libraries(qdma PRIVATE fmt::fmt-header-only)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-if (${COMPILE_CUDA})
-	target_compile_options(qdma PRIVATE -O3 -Xcompiler=-fPIC -Xcompiler=-mavx512f)
-	set_target_properties(qdma PROPERTIES CUDA_ARCHITECTURES "80")
-	target_link_libraries(qdma PRIVATE gdrapi cuda cudart)
-else ()
-	target_compile_options(qdma PRIVATE -O3 -fPIC -mavx512f)
-endif ()
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -DALLOW_EXPERIMENTAL_API -std=c++20")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wold-style-cast -Wno-unused-function -Wno-missing-braces")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-address-of-packed-member -Wno-nested-anon-types -Wno-keyword-macro -Wno-deprecated-declarations")
 
-add_subdirectory(example)
+include_directories("${CMAKE_SOURCE_DIR}/utils")
 
-install(
-	TARGETS qdma
-	DESTINATION /usr/lib64
+include_directories("${CMAKE_SOURCE_DIR}/include")
+
+include_directories(${CMAKE_SOURCE_DIR}/third_party/atomic_queue/include)
+
+add_subdirectory(third_party/fmt)
+add_subdirectory(third_party/eRPC)
+
+#include: eRPC
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
+    include_directories(${CMAKE_SOURCE_DIR}/third_party/eRPC/src)
+endif()
+
+
+
+set(UTILSOURCES
+        ${CMAKE_SOURCE_DIR}/utils/QDMAController.cpp
 )
 
-install(
-	FILES ${HEAD_FILES}
-	DESTINATION /usr/include)
+set(LIBRARIES ${LIBRARIES} ibverbs mlx5 gflags numa pthread)
+
+add_executable(microbench_co
+	${CMAKE_SOURCE_DIR}/src/microbench_co.cpp ${UTILSOURCES}
+)
+
+target_link_libraries(microbench_co ${LIBRARIES})
