@@ -1,4 +1,4 @@
-# RPCNIC: A High-Performance and Reconfigurable PCIe-attached RPC Accelerator[HPCA2025]
+# RPCNIC: A High-Performance and Reconfigurable PCIe-attached RPC Accelerator [HPCA2025]
 
 A software-hardware co-designed RPC on-NIC accelerator that enables reconfigurable RPC kernel offloading. This is the source code for our HPCA2025 paper.
 
