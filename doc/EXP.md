@@ -20,6 +20,7 @@ sudo ../bin_host/deserialize_hw 0 8
 To run differenct BENCH, please edit `/src/deserialize_hw.cpp`, change `#define BENCH0` to `#define BENCHX` and recompile the program.
 
 The otput will be like this:
+~~~
 total size: 91323
 data_cnt                                   : 142701027
 timer_en                                   : 1
@@ -27,7 +28,7 @@ timer_cnt                                  : 149914182
 timer_cnt                                  : 149914182
 speed: 92.9517
 timer                                  : 599656
-
+~~~
 
 ### 1.2 Run the field-by-field DMA deserializer
 Program `bitstream/deser_field_by_field.bit` to the FPGA, and after reboot the machine, run the following command like above to start the experiment:
