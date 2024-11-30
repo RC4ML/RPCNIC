@@ -1554,14 +1554,9 @@ uint8_t *SerializeToString_DFS(M_base *message, uint8_t *current_buffer_addr, bo
     return current_buffer_addr;
 }
 
-uint8_t *SerializeToString(M_base *message, string *output, bool skip_long_string_flag, size_t &total_size, size_t *messageSizeVec, size_t bytesizelong_size) {
+uint8_t *SerializeToString(M_base *message, string *output, bool skip_long_string_flag, size_t &total_size, size_t *messageSizeVec) {
     uint8_t *temp_p_h2c = (uint8_t *)output;
-    // auto start = chrono::high_resolution_clock::now();
-    // size_t bytesizelong_size = ByteSizeLong(message, skip_long_string_flag);
-    // auto end = chrono::high_resolution_clock::now();
-    // std::chrono::duration<double> diff = end - start;
-    // std::chrono::duration<double> millis = diff * 1000 * 1000;
-    // cout<<"1. Hyperprotobench.bench0.ByteSizeLong() timeing: "<<millis.count()<<" us\n";     
+    size_t bytesizelong_size = ByteSizeLong(message, skip_long_string_flag);
     total_size += bytesizelong_size;
     temp_p_h2c += bytesizelong_size;
     SerializeToString_DFS(message, reinterpret_cast<uint8_t *>(output), skip_long_string_flag, messageSizeVec);

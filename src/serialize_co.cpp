@@ -1,4 +1,4 @@
-#define MICROBENCH_32INT
+#define BENCH0
 #define NO_ENCODE
 
 #ifdef NO_ENCODE
@@ -151,9 +151,8 @@ int main(int argc, char *argv[]) {
 
     // PRE_SER_HOOK;
     bool skip_big_string_flag = true;
-    size_t bytesizelong_size = ByteSizeLong(top_msg_ptr, skip_big_string_flag);
     auto start = chrono::high_resolution_clock::now();
-    SerializeToString(top_msg_ptr, (string *)p_h2c, skip_big_string_flag, total_size, messageSizeVec, bytesizelong_size);
+    SerializeToString(top_msg_ptr, (string *)p_h2c, skip_big_string_flag, total_size, messageSizeVec);
     auto middle = chrono::high_resolution_clock::now();
 
     host_serialized_len = total_size;

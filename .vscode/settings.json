@@ -9,6 +9,8 @@
         "type_traits": "c",
         "xtr1common": "c",
         "*.m": "matlab",
-        "*.inc": "cpp"
+        "*.inc": "cpp",
+        "*.ipp": "cpp",
+        "system_error": "cpp"
     }
 }

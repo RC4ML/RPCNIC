@@ -1,5 +1,5 @@
-#define MICROBENCH_32INT
-// #define NO_ENCODE
+#define BENCH0
+#define NO_ENCODE
 
 #ifdef NO_ENCODE
 #include "no_encode_main.h"

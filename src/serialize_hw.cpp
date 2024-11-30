@@ -1,4 +1,4 @@
-#define MICROBENCH_32INT
+#define BENCH0
 #define NO_ENCODE
 
 #ifdef NO_ENCODE
@@ -88,18 +88,18 @@ int main(int argc, char *argv[]) {
         fpga_ctl->writeBridge(20, metadata[0]);
         fpga_ctl->writeBridge(21, metadata[1]);
         fpga_ctl->writeBridge(22, metadata[2]);
-        for (int i = 7;i >= 0;i--) {
-            std::cout << std::hex << std::setw(16) << std::setfill('0') << metadata[0][i];
-        }
-        std::cout << std::endl;
-        for (int i = 7;i >= 0;i--) {
-            std::cout << std::hex << std::setw(16) << std::setfill('0') << metadata[1][i];
-        }
-        std::cout << std::endl;
-        for (int i = 7;i >= 0;i--) {
-            std::cout << std::hex << std::setw(16) << std::setfill('0') << metadata[2][i];
-        }
-        std::cout << std::endl;
+        // for (int i = 7;i >= 0;i--) {
+        //     std::cout << std::hex << std::setw(16) << std::setfill('0') << metadata[0][i];
+        // }
+        // std::cout << std::endl;
+        // for (int i = 7;i >= 0;i--) {
+        //     std::cout << std::hex << std::setw(16) << std::setfill('0') << metadata[1][i];
+        // }
+        // std::cout << std::endl;
+        // for (int i = 7;i >= 0;i--) {
+        //     std::cout << std::hex << std::setw(16) << std::setfill('0') << metadata[2][i];
+        // }
+        // std::cout << std::endl;
     }
 
     //eng cmd
@@ -152,8 +152,7 @@ int main(int argc, char *argv[]) {
     auto start = chrono::high_resolution_clock::now();
 
     bool skip_big_string_flag = true;
-    size_t bytesizelong_size = ByteSizeLong(top_msg_ptr, skip_big_string_flag);
-    SerializeToString(top_msg_ptr, (string *)p_h2c, skip_big_string_flag, total_size, messageSizeVec, bytesizelong_size);
+    SerializeToString(top_msg_ptr, (string *)p_h2c, skip_big_string_flag, total_size, messageSizeVec);
 
 
     host_serialized_len = total_size;
