@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
     size_t max_class_id = 0;
     int outstanding_req = std::atoi(argv[2]);
 
-    int pci_bus = 0x40;
+    int pci_bus = 0x1a;
     FPGACtl::explictInit(pci_bus, 4 * 1024 * 1024);
     auto fpga_ctl = FPGACtl::getInstance(pci_bus);
 
