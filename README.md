@@ -17,24 +17,14 @@ A software-hardware co-designed RPC on-NIC accelerator that enables reconfigurab
 
 
 
-## Install Dependencies
+## Install Dependencies and Build
+See [INSTALL.md](./doc/INSTALL.md) for install dependencies and build RPCNIC on a single machine.
 
-- Install QDMA Driver(assume FPGA pci address is 1a:00.0):
-  - `cd qdma_driver`
-  - `make`
-  - `sudo insmod /path/to/qdma_driver/src/qdma-pf.ko`
-  - `echo '1024' | sudo tee -a /sys/bus/pci/devices/0000:1a:00.0/qdma/qmax`
-  - `sudo dma-ctl qdma1a000 q add idx 0 mode st dir bi`
-  - `sudo dma-ctl qdma1a000 q start idx 0 dir bi desc_bypass_en pfetch_bypass_en`
-- Install MLNX_OFED:
-  - `wget https://content.mellanox.com/ofed/MLNX_OFED-23.04-1.1.3.0/MLNX_OFED_LINUX-23.04-1.1.3.0-ubuntu18.04-x86_64.tgz`
-  - `tar -zxvf ./MLNX_OFED_LINUX-23.04-1.1.3.0-ubuntu18.04-x86_64.tgz`
-  - `cd MLNX_OFED_LINUX-23.04-1.1.3.0-ubuntu18.04-x86_64 && sudo ./ofedinstall`
-- Install required libs:
-  - `sudo apt install libgflags-dev libnuma-dev `
+## Deploy FPGA Bitstream
+See [DEPLOY.md](./doc/DEPLOY.md) for connecting to our artifact machine and  deploying FPGA bitstream on Xilinx U280.
 
 ## Run Test
-
+If Check if the configuration is correct in Run Experiments of [EXP.md](./doc/EXP.md) passes, then everything will be fine. Please refer to exp.md for more details.
 
 
 ### Directory Structure:
