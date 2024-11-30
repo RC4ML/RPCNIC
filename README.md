@@ -20,7 +20,7 @@ A software-hardware co-designed RPC on-NIC accelerator that enables reconfigurab
 ## Install Dependencies and Build
 See [INSTALL.md](./doc/INSTALL.md) for install dependencies and build RPCNIC on a single machine.
 
-## Deploy FPGA Bitstream
+## Connect and Deploy Bitstream
 See [DEPLOY.md](./doc/DEPLOY.md) for connecting to our artifact machine and  deploying FPGA bitstream on Xilinx U280.
 
 ## Run Test
