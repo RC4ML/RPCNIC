@@ -100,11 +100,11 @@ p_c2h_buffer_size = 16680
 
 
 ## 3. Bluefiled-3 SmartNIC
-Due to patent protection and equipment constraints, we are currently unable to provide devices supporting Bluefield-3 SmartNICs. However, we do provide the complete testing code in `/bluefiled`, allowing users to conduct their tests on devices that support Bluefield-3. We appreciate your understanding and cooperation.
+Due to some equipment constraints and confidential requirements, we are currently unable to provide devices with Bluefield-3 SmartNICs. However, the BF-3 related code is in `/bluefiled`, allowing users to conduct their tests on their own servers with BF-3. 
 
 
-## 4. Other microbenchmarks
-Due to patent protection concerns associated with our FPGA code, we are currently unable to provide the corresponding bitstream. However, we have open-sourced the core Chisel source code files in `/src/chisel`. Users are welcome to utilize their own FPGA devices to synthesize the design and generate the bitstream independently. We appreciate your understanding and cooperation.
+## 4. Full FPGA Code
+Due to some confidential requirements regarding FPGA-specific modules such as DMA, and networking (which is not related to the core idea of the paper), we are currently unable to provide full chisel code to generate each bitstream. However, we have open-sourced the core Chisel source code files in `/src/chisel` and generated bitstream to reproduce the core results.
 
 
 ## 5. Extra Attention
